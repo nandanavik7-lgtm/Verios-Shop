@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Shop</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;-webkit-tap-highlight-color:transparent}
+:root{--gold:#ffd84d;--gold2:#fff1b0;--bg:#050505;--card:rgba(255,255,255,.085);--line:rgba(255,255,255,.13);--muted:rgba(255,255,255,.62);--green:#8cff9d;--red:#ff8585}
+body{min-height:100vh;background:var(--bg);color:#fff;overflow-x:hidden}.bg{position:fixed;inset:0;z-index:-4;background:radial-gradient(circle at 12% 10%,rgba(255,216,77,.34),transparent 28%),radial-gradient(circle at 88% 15%,rgba(255,255,255,.13),transparent 26%),radial-gradient(circle at 50% 94%,rgba(255,216,77,.2),transparent 34%),linear-gradient(140deg,#050505,#121212,#050505);animation:bg 8s ease-in-out infinite alternate}@keyframes bg{from{transform:scale(1)}to{transform:scale(1.08)}}.dots{position:fixed;inset:0;z-index:-3;opacity:.22;background-image:radial-gradient(circle,rgba(255,255,255,.5) 1px,transparent 1px);background-size:36px 36px;animation:dots 18s linear infinite}@keyframes dots{from{background-position:0 0}to{background-position:360px 600px}}.orb{position:fixed;border-radius:50%;filter:blur(35px);z-index:-2;opacity:.55;animation:orb 6s ease-in-out infinite alternate}.orb1{width:170px;height:170px;background:rgba(255,216,77,.38);left:-70px;top:170px}.orb2{width:220px;height:220px;background:rgba(255,255,255,.12);right:-90px;bottom:90px;animation-delay:1s}@keyframes orb{from{transform:translate(0,0)}to{transform:translate(28px,-38px)}}.app{max-width:470px;margin:0 auto;min-height:100vh;padding:18px 16px 92px}.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;animation:down .45s ease both}.brand{display:flex;gap:12px;align-items:center}.logo{width:48px;height:48px;border-radius:18px;background:linear-gradient(135deg,var(--gold),#fff);color:#111;display:flex;align-items:center;justify-content:center;font-size:23px;font-weight:950;box-shadow:0 0 30px rgba(255,216,77,.35)}.brand-title{font-size:23px;font-weight:950}.brand-sub{font-size:12px;color:var(--muted);font-weight:800;margin-top:2px}.pill{padding:10px 13px;border-radius:999px;background:rgba(255,255,255,.09);border:1px solid var(--line);color:var(--gold);font-weight:950;font-size:13px}@keyframes down{from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:translateY(0)}}.screen{display:none;animation:show .32s ease both}.screen.active{display:block}@keyframes show{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}.card{position:relative;overflow:hidden;background:var(--card);border:1px solid var(--line);border-radius:28px;padding:20px;margin-bottom:16px;box-shadow:0 22px 55px rgba(0,0,0,.36);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}.card:before{content:"";position:absolute;left:-50px;top:-50px;width:130px;height:130px;background:radial-gradient(circle,rgba(255,216,77,.18),transparent 65%);pointer-events:none}.hero{text-align:center;padding-top:24px}.avatar-wrap{width:120px;height:120px;margin:0 auto;border-radius:50%;padding:4px;background:linear-gradient(135deg,var(--gold),#fff,var(--gold));box-shadow:0 0 38px rgba(255,216,77,.48);animation:pulse 2.3s ease-in-out infinite}@keyframes pulse{0%,100%{transform:scale(1);box-shadow:0 0 28px rgba(255,216,77,.36)}50%{transform:scale(1.025);box-shadow:0 0 48px rgba(255,216,77,.68)}}.avatar{width:100%;height:100%;border-radius:50%;object-fit:cover;background:#222}.username{font-size:30px;font-weight:950;margin-top:16px;text-shadow:0 4px 18px rgba(255,255,255,.14)}.userid{color:var(--muted);font-weight:850;margin-top:6px}.balance-box{margin-top:20px;padding:18px;border-radius:24px;background:linear-gradient(135deg,rgba(255,216,77,.13),rgba(255,255,255,.07));border:1px solid rgba(255,216,77,.28)}.balance-label{color:var(--muted);font-size:13px;font-weight:900}.balance{font-size:44px;color:var(--gold);font-weight:950;margin-top:3px}.title{font-size:22px;font-weight:950;margin-bottom:8px}.desc{color:var(--muted);font-size:14px;font-weight:760;line-height:1.35;margin-bottom:14px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.mini{padding:16px;border-radius:22px;background:rgba(255,255,255,.075);border:1px solid var(--line);min-height:104px}.mini i{font-style:normal;font-size:27px;display:block;margin-bottom:10px}.mini b{display:block;font-size:15px}.mini span{display:block;margin-top:5px;font-size:13px;color:var(--muted);font-weight:850}.input{width:100%;border:none;outline:none;color:#fff;background:rgba(255,255,255,.105);border:1px solid rgba(255,255,255,.09);border-radius:20px;padding:17px 16px;font-size:16px;font-weight:850;margin-top:10px}.input::placeholder{color:rgba(255,255,255,.45)}.btn{width:100%;border:none;outline:none;border-radius:20px;padding:17px 16px;margin-top:12px;font-size:16px;font-weight:950;color:#171717;background:linear-gradient(135deg,var(--gold),var(--gold2));box-shadow:0 14px 28px rgba(255,216,77,.19);cursor:pointer;transition:.18s ease}.btn:active{transform:scale(.965)}.btn.dark{color:#fff;background:rgba(255,255,255,.09);border:1px solid var(--line);box-shadow:none}.link-btn{display:block;width:100%;text-align:center;text-decoration:none;border-radius:20px;padding:17px 16px;margin-top:12px;font-size:16px;font-weight:950;color:#fff;background:rgba(255,255,255,.1);border:1px solid var(--line)}.status{margin-top:13px;font-weight:900;font-size:14px;line-height:1.35}.ok{color:var(--green)}.err{color:var(--red)}.wait{color:var(--gold)}.loader{width:58px;height:58px;border-radius:50%;border:6px solid rgba(255,255,255,.15);border-top-color:var(--gold);margin:18px auto 4px;animation:spin .9s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.hidden{display:none!important}.product-card{border-radius:24px;padding:18px;background:linear-gradient(135deg,rgba(255,255,255,.095),rgba(255,255,255,.045));border:1px solid var(--line);margin-top:14px;animation:show .28s ease both}.product-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}.product-name{font-size:24px;font-weight:950}.product-code{font-size:12px;color:var(--muted);font-weight:900;margin-top:5px}.price{white-space:nowrap;padding:10px 12px;border-radius:999px;background:rgba(255,216,77,.16);border:1px solid rgba(255,216,77,.32);color:var(--gold);font-weight:950}.key-box{padding:18px;border-radius:20px;margin-top:15px;background:rgba(255,216,77,.13);border:1px solid rgba(255,216,77,.42);font-size:20px;font-weight:950;color:var(--gold);word-break:break-all;text-align:center}.history-item{padding:15px;border-radius:18px;background:rgba(255,255,255,.075);border:1px solid rgba(255,255,255,.08);margin-top:10px;display:flex;justify-content:space-between;gap:12px;font-weight:900}.empty{padding:18px;text-align:center;border-radius:20px;background:rgba(255,255,255,.07);border:1px dashed rgba(255,255,255,.18);color:var(--muted);font-weight:900}.tabs{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);width:calc(100% - 28px);max-width:440px;padding:8px;border-radius:28px;background:rgba(18,18,18,.84);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);display:grid;grid-template-columns:repeat(4,1fr);gap:6px;box-shadow:0 20px 55px rgba(0,0,0,.45);z-index:10}.tab{border:none;background:transparent;color:rgba(255,255,255,.62);font-weight:950;font-size:11px;border-radius:20px;padding:9px 3px;cursor:pointer}.tab .ico{display:block;font-size:20px;margin-bottom:3px}.tab.active{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#111;box-shadow:0 8px 20px rgba(255,216,77,.22)}.toast{position:fixed;left:50%;top:16px;transform:translateX(-50%) translateY(-70px);max-width:390px;width:calc(100% - 36px);padding:14px 16px;border-radius:20px;background:rgba(18,18,18,.9);border:1px solid var(--line);backdrop-filter:blur(18px);z-index:20;font-weight:900;text-align:center;transition:.28s ease}.toast.show{transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="bg"></div><div class="dots"></div><div class="orb orb1"></div><div class="orb orb2"></div><div id="toast" class="toast"></div>
+
+<div class="app">
+  <div class="top">
+    <div class="brand"><div class="logo">V</div><div><div class="brand-title"></div><div class="brand-sub"></div></div></div>
+    <div id="topBalance" class="pill">$0.00</div>
+  </div>
+
+  <section id="home" class="screen active">
+    <div class="card hero">
+      <div class="avatar-wrap"><img id="avatar" class="avatar" src="https://i.imgur.com/3ZUrjUP.png"></div>
+      <div id="username" class="username">Loading...</div>
+      <div id="userid" class="userid">ID: 0</div>
+      <div class="balance-box"><div class="balance-label">Ваш баланс</div><div id="balance" class="balance">$0.00</div></div>
+    </div>
+    <div class="card">
+      <div class="title">⚡ Быстрые действия</div>
+      <div class="desc">Пополняйте баланс, активируйте товары и получайте ключ доступа прямо внутри Mini App.</div>
+      <div class="grid">
+        <div class="mini" onclick="openTab('balance')"><i>💳</i><b>Пополнить</b><span>CryptoBot USDT</span></div>
+        <div class="mini" onclick="openTab('products')"><i>🎁</i><b>Товары</b><span>Активация по коду</span></div>
+        <div class="mini" onclick="openTab('history')"><i>📜</i><b>История</b><span>Все пополнения</span></div>
+        <div class="mini" onclick="openTab('profile')"><i>👤</i><b>Профиль</b><span>Ваши данные</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="balanceScreen" class="screen">
+    <div class="card">
+      <div class="title">💳 Пополнение баланса</div>
+      <div class="desc">Введите сумму в USDT. После генерации нажмите оплату через CryptoBot, затем вернитесь и нажмите проверку.</div>
+      <input id="amount" class="input" type="number" placeholder="Введите сумму в USDT">
+      <button class="btn" onclick="createInvoice()">✨ Сгенерировать оплату</button>
+      <div id="loader" class="loader hidden"></div>
+      <a id="payBtn" class="link-btn hidden" target="_blank">💸 Оплатить через CryptoBot</a>
+      <button id="checkBtn" class="btn dark hidden" onclick="checkInvoice()">✅ Проверить оплату</button>
+      <div id="payStatus" class="status"></div>
+    </div>
+  </section>
+
+  <section id="productsScreen" class="screen">
+    <div class="card">
+      <div class="title">🎁 Активировать товар</div>
+      <div class="desc">Введите номер товара для активации товара.</div>
+      <input id="productCode" class="input" placeholder="Введите номер товара">
+      <button class="btn" onclick="findProduct()">🔎 Найти товар</button>
+      <div id="productBox" class="hidden"></div>
+      <div id="buyStatus" class="status"></div>
+    </div>
+    </section>
+
+  <section id="historyScreen" class="screen">
+    <div class="card">
+      <div class="title">📜 История пополнений</div>
+      <div class="desc">Здесь отображаются все ваши успешные пополнения за всё время.</div>
+      <div id="history"></div>
+    </div>
+  </section>
+
+  <section id="profileScreen" class="screen">
+    <div class="card">
+      <div class="title">👤 Профиль</div>
+      <div class="desc">Ваш Telegram профиль и текущий баланс.</div>
+      <div style="margin-top:10px;font-weight:900;font-size:18px;">Никнейм</div>
+      <div id="username2" class="userid" style="margin-top:8px;font-size:18px;opacity:1;"></div>
+      <div style="margin-top:18px;font-weight:900;font-size:18px;">Telegram ID</div>
+      <div id="userid2" class="userid" style="margin-top:8px;font-size:18px;opacity:1;"></div>
+      <div class="balance-box" style="margin-top:22px;">
+        <div class="balance-label">Доступный баланс</div>
+        <div id="balance2" class="balance">$0.00</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="tabs">
+  <button id="tab-home" class="tab active" onclick="openTab('home')"><span class="ico">🏠</span>Главная</button>
+  <button id="tab-balance" class="tab" onclick="openTab('balance')"><span class="ico">💳</span>Баланс</button>
+  <button id="tab-products" class="tab" onclick="openTab('products')"><span class="ico">🎁</span>Товары</button>
+  <button id="tab-history" class="tab" onclick="openTab('history')"><span class="ico">📜</span>История</button>
+</div>
+
+<script>
+const tg = window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp : null;
+if(tg){tg.expand();tg.ready();}
+let invoiceId = null;
+let currentProduct = null;
+let localUser = null;
+const localProducts = {
+  "#13579": {name:"Telegram Bot", price:10, key:"CD10tb", icon:"🤖"},
+  "#24680": {name:"Mini App", price:6, key:"CD6ma", icon:"📱"},
+  "#35791": {name:"Site", price:12, key:"CD12s", icon:"🌐"},
+  "#46802": {name:"PC Soft", price:4, key:"CD4ps", icon:"💻"}
+};
+function getHeaders(){return {"Content-Type":"application/json","X-Telegram-Init-Data":tg ? tg.initData : ""};}
+function money(n){return "$" + Number(n || 0).toFixed(2);}
+function haptic(){try{tg.HapticFeedback.impactOccurred("light")}catch(e){}}
+function toast(text){const t=document.getElementById("toast");t.innerText=text;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2200);}
+function openTab(tab){haptic();const map={home:"home",balance:"balanceScreen",products:"productsScreen",history:"historyScreen",profile:"profileScreen"};document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));document.getElementById(map[tab]).classList.add("active");document.querySelectorAll(".tab").forEach(b=>b.classList.remove("active"));const tabBtn=document.getElementById("tab-"+tab);if(tabBtn)tabBtn.classList.add("active");window.scrollTo({top:0,behavior:"smooth"});if(tab==="history")loadProfile();}
+async function loadProfile(){
+  try{
+    const r = await fetch("/api/profile",{method:"GET",headers:getHeaders()});
+    const data = await r.json();
+    if(!data.ok){renderGuest();return;}
+    localUser=data.user;
+    renderUser(data.user);
+  }catch(e){renderGuest();}
+}
+function renderGuest(){
+  const u = tg && tg.initDataUnsafe && tg.initDataUnsafe.user ? tg.initDataUnsafe.user : {};
+  const user={id:u.id||0,username:u.username||"Loading...",first_name:u.first_name||"Loading...",photo_url:u.photo_url||"",balance:0,history:[]};
+  renderUser(user);
+}
+function renderUser(user){
+  const name = user.username ? "@"+user.username : (user.first_name || "Loading...");
+  document.getElementById("username").innerText=name;
+document.getElementById("username2").innerText=name;
+  document.getElementById("userid").innerText="ID: "+(user.id||0);
+document.getElementById("userid2").innerText="ID: "+(user.id||0);
+  ["balance","balance2","topBalance"].forEach(id=>document.getElementById(id).innerText=money(user.balance));
+  if(user.photo_url){document.getElementById("avatar").src=user.photo_url;document.getElementById("avatar2").src=user.photo_url;}
+  renderHistory(user.history||[]);
+}
+function renderHistory(history){
+  const box=document.getElementById("history");
+  box.innerHTML="";
+  if(!history || history.length===0){box.innerHTML='<div class="empty">Пополнений ещё нет</div>';return;}
+  history.forEach(item=>{box.innerHTML += `<div class="history-item"><span>+$${Number(item.amount).toFixed(2)}</span><span>${item.time}</span></div>`;});
+}
+async function createInvoice(){
+  haptic();
+  const amount=Number(document.getElementById("amount").value);
+  if(!amount || amount<=0){toast("Введите сумму больше 0");return;}
+  document.getElementById("loader").classList.remove("hidden");
+  document.getElementById("payBtn").classList.add("hidden");
+  document.getElementById("checkBtn").classList.add("hidden");
+  document.getElementById("payStatus").className="status wait";
+  document.getElementById("payStatus").innerText="Генерируем ссылку CryptoBot...";
+  try{
+    const r=await fetch("/api/create_invoice",{method:"POST",headers:getHeaders(),body:JSON.stringify({amount})});
+    const data=await r.json();
+    document.getElementById("loader").classList.add("hidden");
+    if(!data.ok){document.getElementById("payStatus").className="status err";document.getElementById("payStatus").innerText="Ошибка создания оплаты";return;}
+    invoiceId=data.invoice_id;
+    const pay=document.getElementById("payBtn");pay.href=data.pay_url;pay.classList.remove("hidden");
+    document.getElementById("checkBtn").classList.remove("hidden");
+    document.getElementById("payStatus").className="status ok";
+    document.getElementById("payStatus").innerText="✅ Ссылка создана. Оплатите и нажмите проверку.";
+  }catch(e){document.getElementById("loader").classList.add("hidden");document.getElementById("payStatus").className="status err";document.getElementById("payStatus").innerText="Ошибка соединения";}
+}
+async function checkInvoice(){
+  haptic();
+  if(!invoiceId){toast("Сначала создайте оплату");return;}
+  const st=document.getElementById("payStatus");st.className="status wait";st.innerText="Проверяем оплату...";
+  try{
+    const r=await fetch("/api/check_invoice",{method:"POST",headers:getHeaders(),body:JSON.stringify({invoice_id:invoiceId})});
+    const data=await r.json();
+    if(data.paid){st.className="status ok";st.innerText="✅ Оплата подтверждена. Баланс зачислен.";toast("Баланс пополнен");await loadProfile();}
+    else{st.className="status err";st.innerText="❌ Оплата пока не найдена";}
+  }catch(e){st.className="status err";st.innerText="Ошибка проверки";}
+}
+function quickProduct(code){document.getElementById("productCode").value=code;findProduct();}
+async function findProduct(){
+  haptic();
+  const code=document.getElementById("productCode").value.trim();
+  const productBox=document.getElementById("productBox");
+  const buyStatus=document.getElementById("buyStatus");
+  buyStatus.innerHTML="";
+  if(!code){toast("Введите номер товара");return;}
+  try{
+    const r=await fetch("/api/product",{method:"POST",headers:getHeaders(),body:JSON.stringify({code})});
+    const data=await r.json();
+    if(!data.ok){productBox.classList.add("hidden");toast("Товар не найден");return;}
+    currentProduct=code;
+    const p=data.product;
+    productBox.classList.remove("hidden");
+    productBox.innerHTML=`<div class="product-card"><div class="product-top"><div><div class="product-name">${localProducts[code]?.icon || "🎁"} ${p.name}</div><div class="product-code">Активация товара</div></div><div class="price">${p.price} USD</div></div><button class="btn" onclick="buyProduct()">🛒 Купить с баланса</button></div>`;
+  }catch(e){toast("Ошибка соединения");}
+}
+async function buyProduct(){
+  haptic();
+  if(!currentProduct){toast("Сначала выберите товар");return;}
+  const box=document.getElementById("buyStatus");
+  box.className="status wait";box.innerHTML="Проверяем баланс...";
+  try{
+    const r=await fetch("/api/buy",{method:"POST",headers:getHeaders(),body:JSON.stringify({code:currentProduct})});
+    const data=await r.json();
+    if(!data.ok){box.className="status err";box.innerHTML="❌ "+data.error;return;}
+    box.className="status ok";
+    box.innerHTML=`✅ Товар успешно куплен<br><br><span style="color:white">Для получения товара отправьте ключ доступа:</span><br><br><b style="color:white">@dipinex</b><div class="key-box">${data.key}</div>`;
+    toast("Товар куплен");
+    await loadProfile();
+  }catch(e){box.className="status err";box.innerHTML="Ошибка покупки";}
+}
+loadProfile();
+</script>
+</body>
+</html>
